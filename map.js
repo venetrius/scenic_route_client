@@ -21,14 +21,19 @@ const getGoogleMarker = function(coord){
 }
 
 function setStartingPoint(event) {
-  console.log('event....')
+  setPointMarker(event, startPoint)
+}
+
+function setDestinationPoint(event) {
+  setPointMarker(event, endPoint)
+}
+
+function setPointMarker(event, target) {
   marker = getGoogleMarker(event.latLng);
-  if(startPoint.marker){
-    startPoint.marker.setMap(null);
+  if(target.marker){
+    target.marker.setMap(null);
   }
-  startPoint.marker = marker
-  $('#centerlat').text(marker.getPosition().lat());
-  $('#centerlong').text(marker.getPosition().lng());
+  target.marker = marker
   let infowindow = new google.maps.InfoWindow({
     content: `<div>Start point</div>`
   });
@@ -38,86 +43,13 @@ function setStartingPoint(event) {
 }
 
 const addStart = function(){
-  console.log('adding listener')
   google.maps.event.removeListener(newPointListener);
   newPointListener = map.addListener('click', setStartingPoint);
 }
 
 const addDestination = function(){
-  console.log('adding listener')
   google.maps.event.removeListener(newPointListener);
-  newPointListener = map.addListener('click', setStartingPoint);
-}
-
-
-
-const deletePoint = function(){
-  pointMap[activePoint.id].setMap(null);
-  delete pointMap[activePoint.id];
-  clearPointContainer();
-}
-
-const addPoint = function(point) {
-  let marker = getGoogleMarker({lng : Number(point.longitude), lat : Number(point.latitude)});
-  var infowindow = new google.maps.InfoWindow({
-    content: `<div>${point.title}</div>`
-  });
-  // Onclick show point info
-  marker.addListener('click', function () {
-    showPointInfo(point.id);
-  });
-
-  // Show point title on hover
-  marker.addListener('mouseover', function() {
-    infowindow.open(map, marker);
-  });
-  marker.addListener('mouseout', function() {
-    infowindow.close();
-  });
-    pointMap[point.id] = marker;
-}
-
-function newPointEvent(event) {
-  if(!pointTarget){
-    console.log('cougth event')
-    return false;
-  }
-  marker = getGoogleMarker(event.latLng);
-  nonPersistentMarker = marker;
-  $('#centerlat').text(marker.getPosition().lat());
-  $('#centerlong').text(marker.getPosition().lng());
-  let infowindow = new google.maps.InfoWindow({
-    content: `<div>Add a title</div>`
-  });
- marker.addListener('click', function () {
-    infowindow.open(map, marker);
-  });
-  $('#newPointForm').show();
-}
-
-const {enableNewPointEvent, disableNewPointEvent} = function(){
-  let newPointListener = null;
-  return {
-    enableNewPointEvent : function (){
-      newPointListener = map.addListener('click', newPointEvent);
-      $("#toggleEditBtn").html("Cancel add point");
-      $("#toggleEditBtn").attr("onclick","disableNewPointEvent()")        
-    },
-    
-    disableNewPointEvent : function(){
-      google.maps.event.removeListener(newPointListener);
-      newPointListener = null;
-      $("#toggleEditBtn").html("Add New Point");
-      $("#toggleEditBtn").attr("onclick","enableNewPointEvent()")
-    }
-  }
-}();
-
-const cancelAddNewPoint = function(){
-  $('#newPointForm').hide();
-  nonPersistentMarker.setMap(null);
-  nonPersistentMarker = null;
-  disableNewPointEvent();
+  newPointListener = map.addListener('click', setDestinationPoint);
 }
 
 // call back function for Google API call
@@ -130,10 +62,6 @@ function initMap() {
 
   poly = new google.maps.Polyline({  });
   poly.setMap(map);
-
-
- // $("#toggleEditBtn").html("Cancel add point");
- // $("#toggleEditBtn").attr("onclick","disableNewPointEvent()")        
   
 }
 
