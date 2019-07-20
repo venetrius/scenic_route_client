@@ -2,7 +2,7 @@ console.log('hello everyone')
 
 var map;
 var pointMap = {}
-var pointTarget = null
+var pointTarget = null;
 var newPointListener = null;
 var startPoint = {}
 var endPoint = {}
@@ -41,11 +41,13 @@ function setPointMarker(event, target) {
 const addStart = function(){
   google.maps.event.removeListener(newPointListener);
   newPointListener = map.addListener('click', setStartingPoint);
+  event.preventDefault();
 }
 
 const addDestination = function(){
   google.maps.event.removeListener(newPointListener);
   newPointListener = map.addListener('click', setDestinationPoint);
+  event.preventDefault();
 }
 
 // call back function for Google API call
@@ -62,7 +64,6 @@ function initMap() {
 }
 
 
-
 $( document ).ready(function() {
-
+  
 });
