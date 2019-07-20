@@ -2,7 +2,7 @@ console.log('hello everyone')
 
 var map;
 var pointMap = {}
-var pointTarget = null;
+var pointTarget = null
 var newPointListener = null;
 var startPoint = {}
 var endPoint = {}
@@ -37,18 +37,23 @@ function setPointMarker(event, target) {
  marker.addListener('click', function () {
     infowindow.open(map, marker);
   });
+  event.preventDefault()
+
 }
 
 const addStart = function(){
+  event.preventDefault()
+
   google.maps.event.removeListener(newPointListener);
   newPointListener = map.addListener('click', setStartingPoint);
-  event.preventDefault();
 }
 
 const addDestination = function(){
+  event.preventDefault()
+
   google.maps.event.removeListener(newPointListener);
   newPointListener = map.addListener('click', setDestinationPoint);
-  event.preventDefault();
+  event.preventDefault()
 }
 
 // call back function for Google API call
@@ -85,6 +90,7 @@ function calculateAndDisplayRoute(directionsService, directionsDisplay) {
 }
 
 
+
 $( document ).ready(function() {
-  
+
 });

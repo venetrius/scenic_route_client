@@ -33,15 +33,6 @@
 
 <body style='padding:30px'>
   <h3>Scenic Route</h3>
-  Detalis
-  lat <label id='start_lat'> - </label> 
-  long <label id='start_long'> - </label> 
-
-<br/>
-
-  lat <label id='destination_lat'> - </label> 
-  long <label id='destination_long'> - </label> 
-
 
   <div id="map" style='max-width:800px; margin:auto; padding:20px'></div>
 
@@ -68,7 +59,7 @@
 
       </div>
 
-      <button type="submit" class="btn btn-primary">Get Route</button>
+      <button onclick="routeChangeHandler()" type="button" class="btn btn-primary">Get Route</button>
     </form>
 
     <form style='margin:auto; padding:20px; padding-top:10px'>
