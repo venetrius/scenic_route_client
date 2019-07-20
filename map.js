@@ -6,6 +6,7 @@ var pointTarget = null
 var newPointListener = null;
 var startPoint = {}
 var endPoint = {}
+var routeChangeHandler = null;
 
 const getGoogleMarker = function(coord){
   let marker = new google.maps.Marker({
@@ -50,15 +51,35 @@ const addDestination = function(){
 
 // call back function for Google API call
 function initMap() {
-  
+  var directionsService = new google.maps.DirectionsService;
+  var directionsDisplay = new google.maps.DirectionsRenderer;
+
   map = new google.maps.Map(document.getElementById('map'), {
     zoom: 12,
     center: {lat: 51.0356, lng: -114.0708} 
   });
+  directionsDisplay.setMap(map);
+  routeChangeHandler = function() {
+    calculateAndDisplayRoute(directionsService, directionsDisplay);
+  };
 
   poly = new google.maps.Polyline({  });
   poly.setMap(map);
   
+}
+
+function calculateAndDisplayRoute(directionsService, directionsDisplay) {
+  directionsService.route({
+    origin: startPoint.marker.position,
+    destination: endPoint.marker.position,
+    travelMode: 'DRIVING'
+  }, function(response, status) {
+    if (status === 'OK') {
+      directionsDisplay.setDirections(response);
+    } else {
+      window.alert('Directions request failed due to ' + status);
+    }
+  });
 }
 
 
