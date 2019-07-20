@@ -4,10 +4,6 @@ var map;
 var pointMap = {}
 var pointTarget = null
 var newPointListener = null;
-
-
-var nonPersistentMarker;
-var activePoint;
 var startPoint = {}
 var endPoint = {}
 
