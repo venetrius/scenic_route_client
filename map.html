@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <!-- External JS -->
+  <script
+			  src="https://code.jquery.com/jquery-3.4.1.min.js"
+			  integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+			  crossorigin="anonymous"></script>
+  <script type="text/javascript" src="./map.js"></script>
+  <style>
+    #map {
+      width: 70%;
+      height: 400px;
+      background-color: grey;
+    }
+  </style>
+</head>
+
+<body>
+  <h3>Map App Demo</h3>
+  Detalis
+  lat <label id='start_lat'> - </label> 
+  long <label id='start_long'> - </label> 
+
+<br/>
+
+  lat <label id='destination_lat'> - </label> 
+  long <label id='destination_long'> - </label> 
+
+
+  <div id="map"></div>
+  <button onclick="addStart()"> Add Start </button>
+  <button onclick="addDestination()"> Add Destination </button>
+
+  <script async defer
+    src="https://maps.googleapis.com/maps/api/js?key=KEY&callback=initMap">
+    </script>
+</body>
+
+</html>
