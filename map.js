@@ -41,9 +41,12 @@ const addStart = function(){
   console.log('adding listener')
   google.maps.event.removeListener(newPointListener);
   newPointListener = map.addListener('click', setStartingPoint);
+  event.preventDefault();
 }
 
 const addDestination = function(){
+  event.preventDefault();
+
   console.log('adding listener')
   google.maps.event.removeListener(newPointListener);
   newPointListener = map.addListener('click', setStartingPoint);
